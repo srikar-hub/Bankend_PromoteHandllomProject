@@ -43,4 +43,10 @@ public class SignUpService implements SignUpInterface{
 		
 	}
 
+	@Override
+	public User register(User user) {
+		
+		return ur.save(user);
+	}
+
 }

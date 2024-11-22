@@ -3,6 +3,7 @@ package com.klu.BackendHandlooms.Controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,9 @@ import com.klu.BackendHandlooms.Service.SignUpInterface;
 public class UserController {
 
 	
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+	
+	
 	@Autowired
 	private SignUpInterface si;
 	
@@ -28,8 +32,16 @@ public class UserController {
 	}
 	@PostMapping("/signup")
 	public Map<String, String> addUser(@RequestBody User user) {
+		
 	   return si.addUser(user);
 	}
+	
+	@PostMapping("/register")
+	public User register(@RequestBody User user) {
+		user.setPassword(encoder.encode(user.getPassword()));
+		return si.register(user);
+	}
+	
 	
 	@PostMapping("/login")
 	public Map<String,Object> loginUser(@RequestBody Map<String,String> cred){
