@@ -1,4 +1,4 @@
-package com.klu.BackendHandlooms.Service;
+package com.klu.BackendHandlooms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.klu.BackendHandlooms.Model.User;
-import com.klu.BackendHandlooms.Model.UserPriniciple;
-import com.klu.BackendHandlooms.Repository.UserRepository;
+import com.klu.BackendHandlooms.model.User;
+import com.klu.BackendHandlooms.model.UserPriniciple;
+import com.klu.BackendHandlooms.repository.UserRepository;
 
 @Service
 public class MyUserDetailService implements UserDetailsService{

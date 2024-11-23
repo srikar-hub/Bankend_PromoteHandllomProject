@@ -1,5 +1,6 @@
 package com.klu.BackendHandlooms.Controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.klu.BackendHandlooms.Model.User;
-import com.klu.BackendHandlooms.Service.SignUpInterface;
+import com.klu.BackendHandlooms.model.User;
+import com.klu.BackendHandlooms.repository.UserRepository;
+import com.klu.BackendHandlooms.service.SignUpInterface;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,7 +23,10 @@ import com.klu.BackendHandlooms.Service.SignUpInterface;
 public class UserController {
 
 	
-	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+	//private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+	
+	@Autowired
+	private UserRepository ur;
 	
 	
 	@Autowired
@@ -38,7 +44,7 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public User register(@RequestBody User user) {
-		user.setPassword(encoder.encode(user.getPassword()));
+//		user.setPassword(encoder.encode(user.getPassword()));
 		return si.register(user);
 	}
 	
@@ -51,5 +57,21 @@ public class UserController {
 		return response;
 		
 	}
+	
+	@PutMapping("/setPassword")
+	public Map<String,Object> setPassword(@RequestBody Map<String,String> credentials){
+		String email = credentials.get("email");
+		String newPassword = credentials.get("password");
+		Map<String,Object> response= si.updatePassword(email, newPassword);
+		
+		return response;
+		
+	}
+	
+	@PostMapping("/loginSecurity")
+	public String login(@RequestBody User user) {
+		return si.verify(user);
+	}
+
     
 }

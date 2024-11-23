@@ -1,4 +1,4 @@
-package com.klu.BackendHandlooms.Model;
+package com.klu.BackendHandlooms.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

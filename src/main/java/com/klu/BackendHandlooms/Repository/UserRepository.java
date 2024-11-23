@@ -1,10 +1,11 @@
-package com.klu.BackendHandlooms.Repository;
+package com.klu.BackendHandlooms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.klu.BackendHandlooms.Model.User;
+import com.klu.BackendHandlooms.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 User findByEmail(String email);
 boolean existsByEmail(String email);
+
 }

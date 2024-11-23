@@ -1,4 +1,4 @@
-package com.klu.BackendHandlooms.Model;
+package com.klu.BackendHandlooms.model;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,17 +13,17 @@ public UserPriniciple(User user){
 }
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities() {
-	// TODO Auto-generated method stub
+	
 	return Collections.emptyList();
 }
 @Override
 public String getPassword() {
-	// TODO Auto-generated method stub
+	
 	return user.getPassword();
 }
 @Override
 public String getUsername() {
-	// TODO Auto-generated method stub
+	
 	return user.getEmail();
 }
 
