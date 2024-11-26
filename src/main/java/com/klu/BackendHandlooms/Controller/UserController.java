@@ -70,7 +70,20 @@ public class UserController {
 	
 	@PostMapping("/loginSecurity")
 	public String login(@RequestBody User user) {
-		return si.verify(user);
+		 // Fetch the user from the database using email
+	    User existingUser = ur.findByEmail(user.getEmail());
+	    
+	    if (existingUser == null) {
+	        return "User not found";
+	    }
+	    
+	    // Check if the passwords match
+	    if (!existingUser.getPassword().equals(user.getPassword())) {
+	        return "Invalid credentials";
+	    }
+	    
+	    // Now pass the complete user object to the verify method (which will include userId)
+	    return si.verify(existingUser);
 	}
 
     

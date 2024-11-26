@@ -77,11 +77,11 @@
 		public String verify(User user) {
 			Authentication authentication  = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 			if(authentication.isAuthenticated()) {
-				return jwtservice.generateToken(user.getEmail());
+				return jwtservice.generateToken(user.getEmail(),user.getId());
 			}
 			return "fail";
 		}
-		
+			
 		
 	
 	}

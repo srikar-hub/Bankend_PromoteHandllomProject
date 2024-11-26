@@ -24,8 +24,9 @@ public class JWTService {
 		SecretKey sk = keygen.generateKey();
 		secretKey =Base64.getEncoder().encodeToString(sk.getEncoded());
 	}
-	public String generateToken(String email) {	
+	public String generateToken(String email,long userId) {	
 		Map<String,Object> claims = new HashMap<>();
+		claims.put("id",userId);
 		return Jwts.builder()
 				.claims()
 				.add(claims)
@@ -34,13 +35,17 @@ public class JWTService {
 				.expiration(new Date(System.currentTimeMillis()+1000*60*60))
 				.and()
 				.signWith(getKey())
-				.compact();
-				 
+				.compact();			 
 	}
 	  private SecretKey getKey() {
 	        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 	        return Keys.hmacShaKeyFor(keyBytes);
 	    }
+	  public Long extractUserId(String token) {
+		    // Extract the user ID from the JWT token
+		    return extractClaim(token, claims -> claims.get("id", Long.class)); // Retrieve the "id" claim
+		}
+
 
 	    public String extractUserName(String token) {
 	        // extract the username from jwt token
