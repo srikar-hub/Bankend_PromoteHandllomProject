@@ -1,5 +1,4 @@
 package com.klu.BackendHandlooms.service;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.function.Function;
@@ -32,7 +31,7 @@ public class JWTService {
 				.add(claims)
 				.subject(email)
 				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis()+60*60*60))
+				.expiration(new Date(System.currentTimeMillis()+1000*60*60))
 				.and()
 				.signWith(getKey())
 				.compact();

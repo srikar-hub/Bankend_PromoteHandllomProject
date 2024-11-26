@@ -1,5 +1,7 @@
 package com.klu.BackendHandlooms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,10 +39,12 @@ public class User {
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
       private long id;
    
-   @Column(unique = true)
-   private String name;
    
+   private String name;
+   @Column(unique = true)
    private String email;
+   
+   @JsonIgnore
    private String password;
    
 }
