@@ -1,5 +1,6 @@
 package com.klu.BackendHandlooms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.klu.BackendHandlooms.model.Cart;
 import com.klu.BackendHandlooms.model.CartItems;
 import com.klu.BackendHandlooms.model.User;
+import com.klu.BackendHandlooms.repository.CartItemsRepo;
 import com.klu.BackendHandlooms.repository.CartRepo;
 import com.klu.BackendHandlooms.repository.UserRepository;
 
@@ -21,6 +23,8 @@ public class CartService {
 	@Autowired
 	private CartRepo cartRepo;
 	
+	@Autowired
+	private CartItemsRepo cartItemsRepo;
 	
 	public Cart getCart(Long userid) {
 		return cartRepo.findByUser_Id(userid);
@@ -67,6 +71,24 @@ public class CartService {
         }
 
         return cartRepo.save(cart); // Save the updated cart
+    }
+    
+    
+    //to get the items in the cart
+    
+    
+    public List<CartItems> getCartItemsForUser(long userId) {
+    	Cart userCart = cartRepo.findByUser_Id(userId);
+    	
+    	if(userCart != null) {
+    		// fetch all the items or carts of the user
+    		return cartItemsRepo.findByCart_Id(userCart.getId());
+    	}
+    	else {
+    		return new ArrayList<>();
+    	}
+		
+    	
     }
 	
 	

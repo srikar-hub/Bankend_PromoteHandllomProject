@@ -6,5 +6,5 @@ import com.klu.BackendHandlooms.model.Cart;
 
 public interface CartRepo extends JpaRepository<Cart, Long>{
 	Cart findByUser_Id(Long userId);
-
+    
 }

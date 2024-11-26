@@ -1,9 +1,13 @@
 package com.klu.BackendHandlooms.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class CartItems {
@@ -11,7 +15,9 @@ public class CartItems {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private long id;
 
-
+@ManyToOne
+@JoinColumn(name = "cart_id", insertable = false, updatable = false)
+private Cart cart; // Back-reference to the Cart entity 
 public long getId() {
 	return id;
 }

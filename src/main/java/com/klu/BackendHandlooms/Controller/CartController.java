@@ -1,5 +1,7 @@
 package com.klu.BackendHandlooms.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.klu.BackendHandlooms.model.Cart;
 import com.klu.BackendHandlooms.model.CartItemRequestDTO;
+import com.klu.BackendHandlooms.model.CartItems;
 import com.klu.BackendHandlooms.service.CartService;
 
 
@@ -35,4 +38,10 @@ public class CartController {
                 cartItemRequest.getTitle()
         );    // Add item to cart
     }
+	
+	
+	@GetMapping("/getCart/{userId}")
+	public List<CartItems> getCartItems(@PathVariable("userId") long userId){
+		return cartService.getCartItemsForUser(userId);
+	}
 }
